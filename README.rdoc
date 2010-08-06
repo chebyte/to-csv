@@ -179,7 +179,7 @@ five headers and it's obvious values and also loosing I18n header translations.
       end
     end
   end
-  
+
   # User model
   class User < ActiveRecord::Base
     def self.csv(users)
@@ -189,13 +189,32 @@ five headers and it's obvious values and also loosing I18n header translations.
       end
     end
   end
-  
+
   # locales/en-US.yml
   activerecord:
     attributes:
       user:
         id: Code
 
+
+==== Include Relationships
+
+if you have an AR object with many relationships and you want to include these to csv results,
+you can use :include option
+
+Examples:
+
+if you want to include a has_many relationship, you can do the following:
+
+  User.all.to_csv(:include => :posts)
+
+if you want to include a belongs_to relationship, we can say:
+
+  User.all.to_csv(:include =>  :organization)
+
+or you can use both in the same time
+
+  User.all.to_csv(:include => [:organization, :posts])
 
 ==== Full Customization
 
